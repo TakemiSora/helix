@@ -22,7 +22,9 @@ jobs:
           targets: aarch64-linux-android
         
       - name: Build
-        run: cargo xtask steel
+        run: |
+          rustup add target aarch64-linux-android
+          cargo xtask steel
 
       - name: Collect binaries
         run: |
