@@ -48,7 +48,7 @@ pub mod tasks {
     }
 
     pub fn codegen() {
-        codegen()
+        code_gen()
     }
 
     pub fn install_steel() {
