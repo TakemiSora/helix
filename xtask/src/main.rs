@@ -48,7 +48,7 @@ pub mod tasks {
     }
 
     pub fn codegen() {
-        code_gen()
+        codegen()
     }
 
     pub fn install_steel() {
@@ -62,6 +62,8 @@ pub mod tasks {
                 "cargo-steel-lib",
                 "--locked",
                 "--force",
+                "--target",
+                "aarch64-linux-android",
             ])
             .spawn()
             .unwrap()
@@ -76,35 +78,18 @@ pub mod tasks {
                 "steel-forge",
                 "--locked",
                 "--force",
+                "--target",
+                "aarch64-linux-android",
             ])
             .spawn()
             .unwrap()
-            .wait()
+            .wait()             
             .unwrap();
 
         println!("----------------------------");
         println!("=> Finished installing steel");
         println!("----------------------------");
         println!("Warming up `forge`...");
-
-        let forge = std::process::Command::new("forge")
-            .args(["pkg", "refresh"])
-            .spawn()
-            .unwrap()
-            .wait();
-
-        match forge {
-            Ok(_) => {
-                println!("Done.");
-                println!("----------------------------");
-            }
-            Err(e) => {
-                println!("Error calling forge !!! Make sure that ~/.cargo/bin or $CARGO_HOME/bin are loaded into the path.");
-                println!("----------------------------");
-                panic!("{:?}", e)
-            }
-        }
-
         code_gen();
 
         std::process::Command::new("cargo")
@@ -116,6 +101,8 @@ pub mod tasks {
                 "steel,git",
                 "--locked",
                 "--force",
+                "--target",
+                "aarch64-linux-android",
             ])
             .spawn()
             .unwrap()
