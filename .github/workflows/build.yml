@@ -14,6 +14,11 @@ jobs:
         with:
           targets: aarch64-linux-android
 
+      - name: Setup Android SDK
+        run: |
+          SDKMANAGER=$(find "$ANDROID_HOME" -name sdkmanager -type f | head -1)
+          echo "$(dirname "$SDKMANAGER")" >> "$GITHUB_PATH"
+
       - name: Install Android NDK
         run: |
           yes | sdkmanager --licenses
@@ -28,7 +33,9 @@ jobs:
           echo "CC_aarch64_linux_android=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang" >> "$GITHUB_ENV"
 
       - name: Build
-        run: cargo xtask steel
+        run: |
+          rustup target add aarch64-linux-android
+          cargo xtask steel
 
       - name: Collect binaries
         run: |
