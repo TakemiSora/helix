@@ -23,7 +23,7 @@ jobs:
         
       - name: Build
         run: |
-          rustup add target aarch64-linux-android
+          rustup target add aarch64-linux-android
           cargo xtask steel
 
       - name: Collect binaries
